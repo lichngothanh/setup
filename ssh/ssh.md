@@ -63,3 +63,57 @@ id_ed25519_azure_company.pub
 ```
 
 ## Step 3. Start ssh-agent service
+```bash
+Get-Service ssh-agent | Set-Service -StartupType Automatic
+Start-Service ssh-agent
+```
+Check: 
+```bash
+Get-Service ssh-agent
+```
+Result:
+Status   |Name               |DisplayName
+------   |----               |-----------
+Running  |ssh-agent          |OpenSSH Authentication Agent
+
+## Step 4. Add keys
+```bash
+ssh-add ~/.shh/id_ed25519_github_personnal
+```
+
+check keys:
+```bash
+ssh-add -1
+```
+
+## Step 5. Add config file
+
+Add config file to ~/.ssh
+
+```bash
+# GitHub Personal
+	Host github-personal
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/id_ed25519_github_personal
+
+# GitHub Work
+	Host github-company
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/id_ed25519_github_company
+
+# Azure DevOps
+	Host azure-company
+    HostName vs-ssh.visualstudio.com
+    User git
+    IdentityFile ~/.ssh/id_ed25519_azure_company
+```
+
+## Step 6. Copy keys and create in Git Store
+Cat key:
+```bash
+cat ~/.ssh/id_ed25519_github_personal.pub
+```
+
+[Git Hub SSH](https://github.com/settings/keys)
